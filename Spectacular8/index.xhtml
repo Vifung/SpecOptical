@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+      <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
+      </headReplace>
+    
+    <body>
+        <navReplace metal:use-macro="./templating/nav.xhtml/nav_bar">
+        </navReplace>
+        
+        <div id="slideshow-wrap">
+             	<input type="radio" id="button-1" name="controls" checked="checked"/>
+                    <label class='bannerdots' for="button-1"></label>
+                <input type="radio" id="button-2" name="controls"/>
+                    <label class='bannerdots' for="button-2"></label>
+                <input type="radio" id="button-3" name="controls"/>
+                    <label class='bannerdots' for="button-3"></label>
+                <label for="button-1" class="arrows" id="arrow-1">></label>
+                <label for="button-2" class="arrows" id="arrow-2">></label>
+                <label for="button-3" class="arrows" id="arrow-3">></label>
+                <div id="slideshow-inner">
+                    <ul>
+                        <li id="slide1">
+                            <img id="banner1" src="./images/banner1.jpg"/>
+                            <div class="description">
+                             
+                            </div>
+                        </li>
+                        <li id="slide2">
+                            <img id="banner2" src="./images/banner2.jpg"/>
+                            <div class="description">
+                             
+                            </div>
+                        </li>
+                        <li id="slide3">
+                            <img id="banner3" src="./images/banner3.jpg"/>
+                            <div class="description">
+                             
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+				<!--<img id="slides" src="images/placeholder.jpg">-->
+			</div>
+            <div id="cmenu" style="padding-top:550px;">
+                    <a href="#" style="font-family: Exo-Bold, sans-serif;"> Custom Glasses </a> 
+                <ul id="citems" style="padding:0px;">
+                     <!--<br><span>Custom Glasses</span></br>-->
+                     <a href="#">| Classic</a>
+                     <a href="#">| Trendy/Hipster |</a>
+                     <a href="#">Nerdy |</a>
+                </ul>
+                
+      <!-- RADIO TESTER  
+                
+                <div class="switch"> 
+                    <input type="checkbox" id="switch1" class="switch-check"/> 
+                    <label for="switch1" class="switch-label"> 
+                        Check 
+                        <span></span> 
+                    </label> 
+                </div>
+                <br/> 
+                <div class="switch"> 
+                    <input type="checkbox" id="switch2" class="switch-check" checked="checked"/> 
+                    <label for="switch2" class="switch-label"> 
+                        Check 
+                        <span></span> 
+                    </label> 
+                </div> 
+
+    -->            
+    <table>
+        
+        <tr>
+            
+            <td class='td_padding'>
+                <img src="./images/Classic_Burberry_BE1156.jpg" height="100px" weight="100px" /></td>
+            <td class='td_padding'>
+                <img src="./images/Classic_Oakley_Halfshock.jpg" height="200px" weight="200px" /></td>
+            <td class='td_padding'>
+                <img src="./images/Classic_Ray-Ban_RX8582.jpg" height="100" weight="100px" /></td>
+        </tr>
+            
+        <tr>
+            <td class='td_padding'>Classic Burberry BE1156 </td>
+            <td class='td_padding'>Classic Oakley Halfshock</td>
+            <td class='td_padding'>Classic Ray-Ban RX8582</td>
+        </tr>
+        
+            
+        
+        <tr>
+            <td class='td_padding'>$215</td>
+            <td class='td_padding'>$107</td>
+            <td class='td_padding'>$205</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div class="switch"> 
+                    <input type="checkbox" id="switch1" class="switch-check"/> 
+                    <input type="checkbox" id="switch1" class="switch-check"/> 
+                    <label for="switch1" class="switch-label"> 
+                       
+                    </label> 
+                </div>
+                <div style="margin-top:2%;">
+                    <button id="add" data-id="1">Add to Cart</button>
+                </div>
+            </td>
+            
+            <td>
+                <div class="switch"> 
+                    <input type="checkbox" id="switch2" class="switch-check"/> 
+                    <label for="switch2" class="switch-label"> 
+                      
+                    </label> 
+                </div>
+            </td>
+            
+            <td>
+                <div class="switch"> 
+                    <input type="checkbox" id="switch3" class="switch-check"/> 
+                    <label for="switch3" class="switch-label"> 
+                      
+                    </label> 
+                </div>
+            </td>
+        </tr>
+        
+        
+        <!-- NEXT ROLL -->
+             
+        <tr>
+            <td class='td_padding'><div class='td_margin'>
+                <img src="./images/Cool_Trendy_Burberry_BE2150.jpg" height="110px" weight="100px"/></div></td>
+            <td class='td_padding'><div class='td_margin'>
+                <img src="./images/Cool_Trendy_Gucci_GG1077.jpg" height="75px" weight="70px" /></div></td>
+            <td class='td_padding'><div class='td_margin'>
+                <img src="./images/Cool_Trendy_Polo_PH2057.jpg" height="110px" weight="100px" /></div></td>
+        </tr>
+            
+        <tr>
+            <td class='td_padding'>Cool Trendy Burberry BE2150</td>
+            <td class='td_padding'>Cool Trendy Gucci GG1077</td>
+            <td class='td_padding'>Cool Trendy Polo PH2057</td>
+        </tr>
+        
+        <tr>
+            <td class='td_padding'>$150</td>
+            <td class='td_padding'>$107</td>
+            <td class='td_padding'>$157</td>
+        </tr>
+        
+         <tr>
+            <td>
+                <div class="switch"> 
+                    <input type="checkbox" id="switch4" class="switch-check"/> 
+                    <label for="switch4" class="switch-label"> 
+                       
+                    </label> 
+                </div>
+            </td>
+            
+            <td>
+                <div class="switch"> 
+                    <input type="checkbox" id="switch5" class="switch-check"/> 
+                    <label for="switch5" class="switch-label"> 
+                      
+                    </label> 
+                </div>
+            </td>
+            
+            <td>
+                <div class="switch"> 
+                    <input type="checkbox" id="switch6" class="switch-check"/> 
+                    <label for="switch6" class="switch-label"> 
+                      
+                    </label> 
+                </div>
+            </td>
+        </tr>
+        
+        
+         <!-- NEXT ROLL 2 -->
+        
+        <tr>
+            <td class='td_padding'><div class='td_margin'>
+                <img src="./images/Nerdy_Persol_PO3007V_Eyeglasses.jpg" height="100px" weight="100px"/></div></td>
+            <td class='td_padding'><div class='td_margin'>
+                <img src="./images/Nerdy_Polo_PH2083.jpg" height="120px" weight="100px" /></div></td>
+            <td class='td_padding'><div class='td_margin'>
+                <img src="./images/Nerdy_Ray-Ban_RX5285.jpg" height="120px" weight="100px" /></div></td>
+        </tr>
+            
+        <tr>
+            <td class='td_padding'>Nerdy Persol PO3007V</td>
+            <td class='td_padding'>Nerdy Polo PH2083</td>
+            <td class='td_padding'>Nerdy Ray-Ban RX5285</td>
+        </tr>
+        
+         <tr>
+            <td class='td_padding'>$300</td>
+            <td class='td_padding'>$208</td>
+            <td class='td_padding'>$285</td>
+        </tr>
+        
+         <tr>
+            <td>
+                <div class="switch"> 
+                    <input type="checkbox" id="switch7" class="switch-check"/> 
+                    <label for="switch7" class="switch-label"> 
+                       
+                    </label> 
+                </div>
+            </td>
+            
+            <td>
+                <div class="switch"> 
+                    <input type="checkbox" id="switch8" class="switch-check"/> 
+                    <label for="switch8" class="switch-label"> 
+                        
+                    </label> 
+                </div>
+            </td>
+            
+            <td>
+                <div class="switch"> 
+                    <input type="checkbox" id="switch9" class="switch-check"/> 
+                    <label for="switch9" class="switch-label"> 
+                        
+                    </label> 
+                </div>
+            </td>
+        </tr>
+        
+        
+           
+    </table>
+                 
+            </div>
+        
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <!--<script src="./js/main.js"></script>-->
+            
+            <script>
+                $(document).ready(function(){
+                
+                    $.ajax({
+                            url: "./mod/shoppingcart.php",
+                            type: "POST",
+                            dataType: 'json',
+                            data: {action: "startcart"},
+                            success: function(returnedData) {
+                                console.log("cart start response: ", returnedData);
+
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(jqXHR.statusText, textStatus);
+                            }
+                        });
+
+                        var unit_id=" document.getElementyById('id');"
+                        alert("ready!");
+
+                        //start cart
+                        $("#add").click(function() {
+
+                            console.log(this.dataset.id);
+                        
+                        
+                        //pulls the id num of the product on index.html and based on that id put the product in cart_product with leftjoin product id from products table
+                        //loop with a function through all id nums to pull certain products in products table
+                        
+                    /*$.ajax({
+                        url: "./mod/products.php",
+                        type: "POST",
+                        dataType: 'json',
+                        data: {id: this.dataset.id},
+                        success: function(returnedData) {
+                            console.log("Product response: ", returnedData);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
+                        
+                    //pull product data
+                    /*$.ajax({
+                        url: "./mod/product.php",
+                        type: "GET",
+                        dataType: 'json',
+                        data: {action: "findProduct", field: "SKU" key: 12354653},
+                        success: function(returnedData) {
+                            console.log("cart start response: ", returnedData);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });*/
+                        
+                        
+                        //put into cart
+                        /*$.ajax({
+                            url:"./addtocart.php",
+                            type:"post",
+                            dataType:"json",
+                            data: {
+                                method: "addtocart",
+                                product_id: product_id,
+                                cart_id: cart_id,
+                                quantity: 1
+
+                            },
+                            success:function(resp){
+                                alert("User profile updated!");
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(jqXHR.statusText, textStatus);
+                                console.log(resp);
+                            }
+                        });*/
+                    
+                    });
+                
+                });
+            </script>
+        
+            <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
+            </footerReplace>
+    </body>
+    
+</html>
