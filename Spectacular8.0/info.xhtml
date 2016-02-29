@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+      <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
+      </headReplace>
+    
+    <navReplace metal:use-macro="./templating/nav.xhtml/nav_bar">
+    </navReplace>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <body>
+        <div id="content">
+            
+            <span>My Information</span>
+            
+            <div id="cmenu">
+                <ul id="citems" style="padding:0px;">
+                     <!--<br><span>Custom Glasses</span></br>-->
+                     <a href="./info.php">| My Information</a>
+                     <a href="./order.php">| My Orders |</a>
+                     <a href="./cart.php">My Cart |</a>
+                </ul>
+            </div>
+            
+            <form class="pure-form pure-form-aligned">
+                <fieldset>
+                    <div class="pure-control-group">
+                        <label for="First Name">First Name</label>
+                        <input id="name" type="text" placeholder="First Name"/>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="Last Name">Last Name</label>
+                        <input id="name" type="text" placeholder="Last Name"/>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="email">Email Address</label>
+                        <input id="email" type="email" placeholder="Email Address"/>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="address2">Address 1</label>
+                        <input id="address" type="text" placeholder="Address 1"/>
+                    </div>
+                    
+                    <div class="pure-control-group">
+                        <label for="address2">Address 2</label>
+                        <input id="address2" type="text" placeholder="Address 2"/>
+                    </div>
+                    
+                    <div class="pure-control-group">
+                        <label for="country">Country</label>
+                        <select id="country">
+                            <option>Canada</option>
+                            <option>United States</option>
+                        </select>
+                    </div>
+                    
+                    <div class="pure-control-group">
+                        <label for="stateProvince">State/Province</label>
+                        <select id="stateProvince">
+                            <option>AL</option>
+                            <option>CA</option>
+                            <option>IL</option>
+                            <option>BC</option>
+                            <option>ON</option>
+                            <option>NB</option>
+                        </select>
+                    </div>
+                    
+                    <div class="pure-control-group">
+                        <label for="city">City</label>
+                        <select id="stateProvince">
+                            <option>Burnaby</option>
+                            <option>Delta</option>
+                            <option>Surrey</option>
+                            <option>Richmond</option>
+                            <option>Vancouver</option>
+                        </select>
+                    </div>
+                    
+                    <div class="pure-control-group">
+                        <label for="phoneNum">Phone Number</label>
+                        <input id="phoneNum" type="text" placeholder="Phone Number"/>
+                    </div>
+                    
+                    <div class="pure-control-group">
+                        <label for="zpcode">Zip/Postal Code</label>
+                        <input id="zpcode" type="text" placeholder="Zip/Postal Code"/>
+                    </div>
+                    
+                    <div class="pure-controls">
+                        <!--<label for="cb" class="pure-checkbox">
+                            <input id="cb" type="checkbox"></input> I've read the terms and conditions
+                        </label>-->
+
+                        <a href="./index.php"><button id="sub" type="submit">Confirm Edit</button></a>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        
+        <script>
+            $(document).ready(function(){
+                //connect and insert
+                
+                $("#sub").click(function(){
+                    $.ajax({
+                        url:"./mod/users.php",
+                        type:"post",
+                        dataType:"json",
+                        data: {
+                            action: "addUser"
+                            
+                        },
+                        success:function(resp){
+                            alert("User profile updated!");
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                            console.log(resp);
+                        }
+                    });
+                });
+            });
+                
+        </script>
+    </body>
+    
+    <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
+    </footerReplace>
+    
+</html>

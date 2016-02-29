@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+      <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
+      </headReplace>
+    
+    <body>
+        <navReplace metal:use-macro="./templating/nav.xhtml/nav_bar">
+        </navReplace>
+        
+        <div id="content">
+            <span>My Cart</span>
+            
+            <div id="cmenu" style="padding:0px;">
+                <ul id="citems" style="padding:0px;">
+                     <!--<br><span>Custom Glasses</span></br>-->
+                     <a href="./info.php">| My Information</a>
+                     <a href="order.php">| My Orders |</a>
+                     <a href="cart.php">My Cart |</a>
+                </ul>
+            </div>
+            
+            <table class="pure-table" style="margin:auto;width:90%;">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Style</th>
+                        <th>Colour</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <button id="nBtn">Proceed to Checkout</button>
+            <button id="cancelCart">Cancel Cart</button>
+            
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>
+        /*<![CDATA[*/
+            $(document).ready(function() {
+
+                //
+                function loadProducts() {
+                    $.ajax({
+                        url: "./mod/products.php",
+                        type: "GET",
+                        dataType: 'html',
+                        success: function(returnedData) {
+                            //console.log("cart checkout response: ", returnedData);
+                            $("#productslist").html(returnedData);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
+                }
+
+                loadProducts();
+
+
+                // remove items from the car
+                $("#shoppingCart").on("click", "input", function() {
+                    // https://api.jquery.com/closest/
+                    this.closest("li").remove();
+
+                });
+
+
+                // cancel the cart
+                $("#cancelCart").click(function() {
+
+                    console.log("End cart.");
+                    $.ajax({
+                        url: "./mod/shoppingcart.php",
+                        type: "POST",
+                        dataType: 'json',
+                        data: {action: "cancelcart"},
+                        success: function(returnedData) {
+                            console.log("cart cancel response: ", returnedData);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
+                    var shoppingCartList = $("#shoppingCart").html("");
+                });
+
+                // cancel the cart
+                $("#nBtn").click(function() {
+
+                    // retrieve all of the items from the cart:
+                    var items = $("#shoppingCart li");
+                    var itemArray = [];
+                    $.each(items, function(key, value) {
+
+                        var item = {sku: value.getAttribute("data-item-sku"),
+                            qty: value.getAttribute("data-item-qty")};
+                        itemArray.push(item);
+                    });
+                    var itemsAsJSON = JSON.stringify(itemArray);
+                    console.log("itemsAsJSON", itemsAsJSON);
+
+
+                    console.log("Check out cart with the following items", itemArray);
+                    $.ajax({
+                        url: "./mod/shoppingcart.php",
+                        type: "POST",
+                        dataType: 'json',
+                        data: {action: "checkoutcart", items: itemsAsJSON},
+                        success: function(returnedData) {
+                            console.log("cart check out response: ", returnedData);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
+                    var shoppingCartList = $("#shoppingCart").html("");
+                });
+
+
+
+
+            });
+            /*]]>*/
+        </script>
+            
+            <!--<div class="pure-controls">
+                <label for="cb" class="pure-checkbox">
+                    <input id="cb" type="checkbox"></input> Select All
+                </label>
+
+                <button id="rbtn" type="submit">Remove Items</button>
+            </div>
+        
+            <div id="cartItems">
+            
+            </div>-->
+            
+            
+            
+        </div>     
+        
+        <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
+        </footerReplace>
+    </body>
+    
+</html>

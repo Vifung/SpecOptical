@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+
+#cmenu {
+    text-align: center;
+    position:static;
+    padding-top:0px;
+}
+
+#stateProvince {
+    width: 14%;
+}
+
+#country {
+    width: 14%;
+}

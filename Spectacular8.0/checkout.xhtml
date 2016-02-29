@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+      <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
+      </headReplace>
+    
+    <body>
+        <navReplace metal:use-macro="./templating/nav.xhtml/nav_bar">
+        </navReplace>
+        
+        <div id="content">
+            
+            <span>Checkout</span><br/><br/>
+            
+            <span>Shipping Information</span><br/>
+            <span>Name: +nameVar+</span><br/>
+            <span>Address: +addressVar+</span><br/>
+            <span>Zip/Postal Code: +codeVar+</span><br/>
+            <span>Phone Number: +numVar+</span><br/>
+            <span>Email: +emailVar+</span><br/><br/>
+            
+            <span>Shipping Method</span><br/>
+            <form>
+                <input type="radio" name="sMethod" id="method1" value="method1" checked="checked"/>Flat Rate Shipping approximately 7 - 25 business days<br/>
+                <input type="radio" name="sMethod" id="method2" value="method2"/>Standard Shipping approximately 6 - 8 business days<br/>
+                <input type="radio" name="sMethod" id="method3" value="method3"/>Expedited Shipping approxmiately 3 -7 business days<br/>
+            </form><br/>           
+            
+            <span>Payment Method</span><br/>
+            <form>
+                <input type="radio" name="pMethod" id="method1" value="method1" checked="checked"/>PayPal<br/>
+                <input type="radio" name="pMethod" id="method2" value="method2"/>Credit Card<br/>
+            </form>
+            
+            <a href="./thankyou.php"><button>Place Order</button></a>
+                
+        </div>
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <!--<script src="./js/main.js"></script>-->
+
+        <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
+        </footerReplace>
+    </body>
+    
+</html>
