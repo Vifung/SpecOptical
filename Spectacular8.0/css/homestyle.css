@@ -14,6 +14,7 @@ html {
     text-decoration: none;
 }
 
+
 /* Install EXO FONT */ 
 a {
     color: #514C51;
@@ -108,6 +109,7 @@ input[type=checkbox] + label:before{
 }
 
 #footer {
+    float: left;
     background-color: #E8ECEF;
     opacity: 0.8;
     
@@ -471,4 +473,20 @@ input[type=radio]#button-5:checked~.arrows#arrow-4 {
   background: -ms-radial-gradient(45%, circle, rgb(0, 128, 255) 0%, rgb(0, 76, 153) 100%);
   border: 4px inset #FFFFFF;
   box-shadow: 0 2px 5px rgba(81,208,255,0.5), 0 0 5px rgba(210,243,255,0.5) inset;
+}
+#content_g {
+    float: left;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    background: red;
+    height: auto;
+    min-height: 300px;
+}
+
+.glassesbox {
+    margin-bottom: 30px;
+    position: relative;
+    width: 30%; 
+    float: left;
 }
