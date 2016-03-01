@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 01, 2016 at 07:30 PM
+-- Generation Time: Mar 01, 2016 at 09:09 PM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -25,7 +25,7 @@ CREATE TABLE `cart` (
   `state` varchar(30) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `total` decimal(15,2) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
@@ -33,10 +33,11 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`id`, `state`, `time`, `total`) VALUES
 (1, 'cancelled', '2016-02-05 05:39:33', '12.95'),
-(2, 'started', '2016-02-19 00:13:05', '0.00'),
+(2, 'cancelled', '2016-02-19 00:13:05', '0.00'),
 (3, 'cancelled', '2016-03-01 18:16:23', '0.00'),
 (4, 'cancelled', '2016-03-01 18:17:55', '0.00'),
-(5, 'started', '2016-03-01 18:20:20', '0.00');
+(5, 'cancelled', '2016-03-01 18:20:20', '0.00'),
+(6, 'checked out', '2016-03-01 19:50:13', '0.00');
 
 -- --------------------------------------------------------
 
@@ -50,7 +51,19 @@ CREATE TABLE `cart_product` (
   `cart_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cart_product`
+--
+
+INSERT INTO `cart_product` (`id`, `product_id`, `cart_id`, `quantity`, `time`) VALUES
+(5, 2, 6, 1, '2016-03-01 19:57:43'),
+(6, 2, 6, 1, '2016-03-01 19:57:43'),
+(7, 3, 6, 1, '2016-03-01 19:57:46'),
+(8, 3, 6, 1, '2016-03-01 19:57:46'),
+(9, 4, 6, 1, '2016-03-01 19:57:48'),
+(10, 4, 6, 1, '2016-03-01 19:57:48');
 
 -- --------------------------------------------------------
 
@@ -166,12 +179,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `cart_product`
 --
 ALTER TABLE `cart_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `product`
 --

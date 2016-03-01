@@ -60,6 +60,32 @@ loadScripts();
                 }
 
                 break;
+                
+            case "addItemsToCart":
+                //add items to cart
+                
+                if(!isset($_SESSION['started'])) {
+                    $data = array("status" => "fail", "msg" => "There is no items to check out.");
+                    echo json_encode($data, JSON_FORCE_OBJECT);
+                    return;
+                }
+                
+                $affectedRows = $scm->addItemsToCart($_SESSION['id']);
+                
+                if($affectedRows > 0) {
+
+                    $data = array("status" => "fail", "msg" => "There is no items to check out.");
+
+                } else {
+                    $data = array("status" => "success", "msg" => "Item added.");
+                }
+                
+                $scm->addItemsToCart($_POST['item'], $_POST['quantity'], $_SESSION['id']);
+
+                $affectedRows = $scm->checkoutCart($_SESSION['id']);
+                
+                break;
+                
             case "checkoutcart":
                 // check out the cart
 

@@ -32,11 +32,11 @@ class ShoppingCartManager {
         return $count;
     }
 
-    public function addItemsToCart($items, $cart_id) {
+    public function addItemsToCart() {
 
-        foreach($items as $item) {
-            $sku = $item['sku'];
-            $qty = $item['qty'];
+            $sku = $_POST['item'];
+            $qty = $_POST['quantity'];
+            $cart_id = $_SESSION['id'];
 
             // need to look up the ID of the product based on the SKU
             $sql = "SELECT ID FROM product WHERE SKU = '$sku'";
@@ -45,7 +45,6 @@ class ShoppingCartManager {
             $sql = "INSERT INTO cart_product (product_id, cart_id, quantity)
                 VALUES ($product_id, $cart_id, $qty)";
             $this->db->affectRows($sql);
-        }
 
     }
 
