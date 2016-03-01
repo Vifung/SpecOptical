@@ -8,26 +8,26 @@
 class ProductManager {
 
     private $db;
-    
+
+     //$postId = $_POST['1'];
+    //$sessionId = $_SESSION['id'];
+
     public function __construct() {
         $this->db = DBConnector::getInstance();
     }
     
     public function getId(){
-        $postId = $_POST['1'];
-        $sessionId = $_SESSION['id'];
-        
         $sql = "INSERT INTO cart_product (product_id, cart_id) VALUES ('$postId','$sessionId')";
     
     }
     
-    /*public function listProducts() {
-        $sql = "SELECT SKU, style, colour, type, unit_price FROM product";
+    public function listProducts() {
+        $sql = "SELECT * FROM product";
         $rows = $this->db->query($sql);
         return $rows;
-    }
+    
 
-    public function findProduct($SKU) {
+    /*public function findProduct($SKU) {
         $params = array(":sku" => $SKU);
         $sql = "SELECT SKU, style, colour, type, unit_price WHERE SKU = :sku";
 
@@ -36,6 +36,10 @@ class ProductManager {
             return $rows[0];
         }*/
 
+        return null;
     }
+
+
+}
 
 ?>
