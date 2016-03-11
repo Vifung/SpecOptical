@@ -19,7 +19,11 @@
                 </ul>
             </div>
             
-            <table class="pure-table" style="margin:auto;width:90%;">
+            <div id="cart">
+            
+            </div>
+            
+            <!--<table class="pure-table" style="margin:auto;width:90%;">
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -52,7 +56,7 @@
                         <td></td>
                     </tr>
                 </tbody>
-            </table>
+            </table>-->
             
             <button id="nBtn">Proceed to Checkout</button>
             <button id="cancelCart">Cancel Cart</button>
@@ -62,31 +66,25 @@
         /*<![CDATA[*/
             $(document).ready(function() {
 
-                //
-                function loadProducts() {
-                    $.ajax({
-                        url: "./mod/products.php",
-                        type: "GET",
+                $.ajax({
+                        url: "./mod/allcart.php",
+                        type: "POST",
                         dataType: 'html',
+    //dont need id to get all//data: {id: "unit_id"},
                         success: function(returnedData) {
-                            //console.log("cart checkout response: ", returnedData);
-                            $("#productslist").html(returnedData);
-
+                            //console.log(returnedData);
+                            $("#cart").html(returnedData);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(jqXHR.statusText, textStatus);
                         }
                     });
-                }
 
-                loadProducts();
-
-
-                // remove items from the car
-                $("#shoppingCart").on("click", "input", function() {
-                    // https://api.jquery.com/closest/
+                
+                $("#delete").click(function(){
+                    alert("whoah!"); 
                     this.closest("li").remove();
-
+                    
                 });
 
 
@@ -149,21 +147,7 @@
             });
             /*]]>*/
         </script>
-            
-            <!--<div class="pure-controls">
-                <label for="cb" class="pure-checkbox">
-                    <input id="cb" type="checkbox"></input> Select All
-                </label>
-
-                <button id="rbtn" type="submit">Remove Items</button>
-            </div>
-        
-            <div id="cartItems">
-            
-            </div>-->
-            
-            
-            
+                    
         </div>     
         
         <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
