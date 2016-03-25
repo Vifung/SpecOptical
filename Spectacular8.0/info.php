@@ -1,4 +1,8 @@
 <?php
+
+
+    require_once('./mod/checkuser.php');
+
     require_once('./libs/PHPTAL-1.3.0/PHPTAL.php');
 
     $template = new PHPTAL('info.xhtml');

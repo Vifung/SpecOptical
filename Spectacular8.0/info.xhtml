@@ -1,3 +1,15 @@
+<!-- ONCE its logged it displays this code...
+To log out click Inspect/Resources/Cookies/Localhost/Delete:PHPSESSID/ -->
+<?php 
+
+if(!isset($_SESSION['logged']))
+{
+   header('Location: ./.php');
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
       <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
@@ -25,27 +37,27 @@
                 <fieldset>
                     <div class="pure-control-group">
                         <label for="First Name">First Name</label>
-                        <input id="name" type="text" placeholder="First Name"/>
+                        <input id="fname" type="text" placeholder="First Name" />
                     </div>
 
                     <div class="pure-control-group">
                         <label for="Last Name">Last Name</label>
-                        <input id="name" type="text" placeholder="Last Name"/>
+                        <input id="lname" type="text" placeholder="Last Name" />
                     </div>
 
                     <div class="pure-control-group">
                         <label for="email">Email Address</label>
-                        <input id="email" type="email" placeholder="Email Address"/>
+                        <input id="email" type="email" placeholder="Email Address" />
                     </div>
 
                     <div class="pure-control-group">
-                        <label for="address2">Address 1</label>
-                        <input id="address" type="text" placeholder="Address 1"/>
+                        <label for="address1">Address 1</label>
+                        <input id="address1" type="text" placeholder="Address 1" />
                     </div>
                     
                     <div class="pure-control-group">
                         <label for="address2">Address 2</label>
-                        <input id="address2" type="text" placeholder="Address 2"/>
+                        <input id="address2" type="text" placeholder="Address 2" />
                     </div>
                     
                     <div class="pure-control-group">
@@ -58,7 +70,7 @@
                     
                     <div class="pure-control-group">
                         <label for="stateProvince">State/Province</label>
-                        <select id="stateProvince">
+                        <select id="stateProvince1">
                             <option>AL</option>
                             <option>CA</option>
                             <option>IL</option>
@@ -70,7 +82,7 @@
                     
                     <div class="pure-control-group">
                         <label for="city">City</label>
-                        <select id="stateProvince">
+                        <select id="stateProvince2">
                             <option>Burnaby</option>
                             <option>Delta</option>
                             <option>Surrey</option>
@@ -94,7 +106,7 @@
                             <input id="cb" type="checkbox"></input> I've read the terms and conditions
                         </label>-->
 
-                        <a href="./index.php"><button id="sub" type="submit">Confirm Edit</button></a>
+                        <a href=""><button id="sub" type="submit">Confirm Edit</button></a>
                     </div>
                 </fieldset>
             </form>
@@ -104,15 +116,39 @@
             $(document).ready(function(){
                 //connect and insert
                 
-                $("#sub").click(function(){
+                
+                document.getElementById("sub").onclick = function(e){
+    
+                    e.preventDefault();
                     $.ajax({
-                        url:"./mod/users.php",
+                        //UPDATE THE PERSONAL INFORMATION
+                        url:"./mod/controller/user-control.php",
                         type:"post",
-                        dataType:"json",
+                        dataType:"html",
                         data: {
+                            
+                            method:"update",
+                            email: document.getElementById("email").value,
+                            address1: document.getElementById("address1").value,
+                            address2: document.getElementById("address2").value,
+                            country: document.getElementById("country").value,
+                            staProv: document.getElementById("stateProvince1").value,
+                            city: document.getElementById("stateProvince2").value,
+                            zipPo: document.getElementById("zpcode").value,
+                            fname: document.getElementById("fname").value,
+                            lname: document.getElementById("lname").value,
+                            phoneNum: document.getElementById("phoneNum").value,   
                             action: "addUser"
                             
                         },
+                        success:function(resp){
+                            alert("USER PROFILE UPDATED!");
+                            console.log(resp);
+                            //user_id = resp[0].id;
+                        
+                        }
+                        
+                        /*
                         success:function(resp){
                             alert("User profile updated!");
                         },
@@ -120,8 +156,9 @@
                             console.log(jqXHR.statusText, textStatus);
                             console.log(resp);
                         }
+                        */
                     });
-                });
+                }
             });
                 
         </script>

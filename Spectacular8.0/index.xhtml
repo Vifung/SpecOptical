@@ -5,6 +5,55 @@
       </headReplace>
     
     <body>
+        
+        <?php 
+
+            echo "Hello! ";
+            if (isset($_SESSION["fname"])) {
+                echo $_SESSION["fname"].  $_SESSION["lname"];
+                echo '<nav id="nav2" role="navigation" metal:define-macro="nav_admin">
+
+                      <div>
+                        <div>
+                          <ul id="navitemsl" style="float:left;clear:left;padding:0;">
+                            <img src=""/>
+                            <a href="index.php">Home</a>
+                            <a href="#">About</a>
+
+                          </ul>
+                          <ul id="navitemsr" style="float:right;clear:right;padding:0;">
+                            <a href="./logout.php">SignOut</a>
+                            <a href="./product_admin.php">Product</a>
+                            <a href="./cart.php">Cart</a>
+                          </ul>
+                        </div>
+                      </div>
+                    </nav>';
+                    
+
+            } else {
+
+               echo '<nav id="nav" role="navigation" metal:define-macro="nav_bar">
+
+                      <div>
+                        <div>
+                          <ul id="navitemsl" style="float:left;clear:left;padding:0;">
+                            <img src=""/>
+                            <a href="index.php">Home</a>
+                          </ul>
+                          <ul id="navitemsr" style="float:right;clear:right;padding:0;">
+                            <a href="./login.php">Login</a>
+                            <a href="./cart.php">Cart</a>
+                          </ul>
+                        </div>
+                      </div>
+                    </nav>';
+
+            }
+
+
+        ?>
+        
         <navReplace metal:use-macro="./templating/nav.xhtml/nav_bar">
         </navReplace>
         
@@ -46,13 +95,12 @@
         
         
             <div id="cmenu" style="padding-top:550px;">
-                    <a href="#" style="font-family: Exo-Bold, sans-serif;"> Custom Glasses </a> 
-                <ul id="citems" style="padding:0px;">
-                     <!--<br><span>Custom Glasses</span></br>-->
+                    <!--<a href="#" style="font-family: Exo-Bold, sans-serif;"> Custom Glasses </a> -->
+                <!--<ul id="citems" style="padding:0px;">
                      <a href="#">| Classic</a>
                      <a href="#">| Trendy/Hipster |</a>
                      <a href="#">Nerdy |</a>
-                </ul>
+                </ul>-->
             </div>    
             
         <!-- NEW GLASSES CONTENT PHP -->
@@ -72,17 +120,13 @@
             
             <script>
                 $(document).ready(function(){
-                    console.log("start");
+                    console.log("start"); 
                     
-                    
-                    
-                    // alex
-                    
+                    //calls all products
                     $.ajax({
                         url: "./mod/allproducts.php",
                         type: "POST",
                         dataType: 'html',
-    //dont need id to get all//data: {id: "unit_id"},
                         success: function(returnedData) {
                             //console.log(returnedData);
                             $("#content_g").html(returnedData);
@@ -92,19 +136,23 @@
                         }
                     });
                     
-                    // alex
-                    
-                    
-                    
-                    
-                    
-                    //var unit_id=" document.getElementyById('id');"
-                    //alert("ready!");
+                    //alex's ajax call
+                    $.ajax({
+                        url: "./mod/allproducts.php",
+                        type: "POST",
+                        dataType: 'html',
+                        success: function(returnedData) {
+                            //console.log(returnedData);
+                            $("#content_g").html(returnedData);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
                     
                     //start cart
-                    $(document).on('click', '.add', function() {          
-                        
-                        $.ajax({
+                    console.log("hi start");
+                    $.ajax({
                             url: "./mod/shoppingcart.php",
                             type: "POST",
                             dataType: 'json',
@@ -116,22 +164,20 @@
                             error: function(jqXHR, textStatus, errorThrown) {
                                 console.log(jqXHR.statusText, textStatus);
                             }
-                        });
+                    });
+                    
+                    $(document).on('click', '.add', function() {
                         
-                        
-                        //pulls the id num of the product on index.html and based on that id put the product in cart_product with leftjoin product id from products table
-                        //loop with a function through all id nums to pull certain products in products table
-                        
-                        
-                        //put into cart
+                        //add to cart
                         console.log(this.dataset.id);
                         var item = this.dataset.id;
+                        var price = this.dataset.price;
                         
                         $.ajax({
                             url:"./mod/shoppingcart.php",
                             type:"post",
                             dataType:"json",
-                            data: {action: "addItemsToCart", item: item, quantity: 1},
+                            data: {action: "addItemsToCart", item: item, price: price, quantity: 1},
                             success:function(resp){
                                 console.log("cart start response: ", returnedData);
                             },

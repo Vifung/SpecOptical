@@ -1,5 +1,5 @@
 <?php 
-include("connection.php");
+include("DBConnector.php");
 
 function insert_user() {
     // insert info into the users table
@@ -20,11 +20,6 @@ function login_user() {
     
     // check if user data matcher db
     $query = "SELECT * FROM users WHERE email = '$username' AND password = '$password' ";
-        
-    
-    // if matches, return ok
-    //    data.username
-    //    $db->Username
     $result = $db->query($query);
         
         
@@ -46,11 +41,7 @@ function login_user() {
         
         
         return true;
-        
-        
-    
-        
-    
+
     } else{
     
         $_SESSION['logged'] = false;

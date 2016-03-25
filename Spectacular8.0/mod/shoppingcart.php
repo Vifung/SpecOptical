@@ -33,12 +33,53 @@ loadScripts();
                     $_SESSION['started'] = "true";
                     $_SESSION['id'] = $id;
                     $data = array("status" => "success", "cart_id" => $id, "msg" => "Cart started.");
-
+                    // lahiru echo($_SESSION);
                 } else {
                     $data = array("status" => "fail", "msg" => "Cart NOT started.");
                 }
 
                 break;
+            
+            case "addQuantity":
+            
+            if(!isset($_SESSION['started'])) {
+                    $data = array("status" => "fail", "msg" => "There is no items to check out.");
+                    echo json_encode($data, JSON_FORCE_OBJECT);
+                    return;
+                }
+                
+                $affectedRows = $scm->addQuantity($_POST['quantity'], $_POST['p_id'], $_SESSION['id']);
+                
+                if($affectedRows > 0) {
+
+                    $data = array("status" => "fail", "msg" => "There is no stock.");
+
+                } else {
+                    $data = array("status" => "success", "msg" => "Item edited.");
+                }
+                
+            break;
+                
+                case "minusQuantity":
+            
+            if(!isset($_SESSION['started'])) {
+                    $data = array("status" => "fail", "msg" => "There is no items to check out.");
+                    echo json_encode($data, JSON_FORCE_OBJECT);
+                    return;
+                }
+                
+                $affectedRows = $scm->minusQuantity($_POST['quantity'], $_POST['p_id'], $_SESSION['id']);
+                
+                if($affectedRows > 0) {
+
+                    $data = array("status" => "fail", "msg" => "There is no items to check out.");
+
+                } else {
+                    $data = array("status" => "success", "msg" => "Item edited.");
+                }
+                
+            break;
+            
             case "cancelcart":
                 // cancel the cart, end session, set cart row to 'cancelled'
 
@@ -54,7 +95,7 @@ loadScripts();
                     session_unset();
                     session_destroy();
                     $data = array("status" => "success", "msg" => "Cart cancelled.");
-
+                    echo var_dump($_SESSION);
                 } else {
                     $data = array("status" => "fail", "msg" => "Cart NOT cancelled.");
                 }
@@ -70,7 +111,7 @@ loadScripts();
                     return;
                 }
                 
-                $affectedRows = $scm->addItemsToCart($_SESSION['id']);
+                $scm->addItemsToCart($_POST['item'], $_POST['quantity'], $_POST['price'], $_SESSION['id']);
                 
                 if($affectedRows > 0) {
 
@@ -79,10 +120,48 @@ loadScripts();
                 } else {
                     $data = array("status" => "success", "msg" => "Item added.");
                 }
+                            
+                break;
+            
+            case "removeProductFromCart":
+                if(!isset($_SESSION['started'])) {
+                    $data = array("status" => "fail", "msg" => "There is no products in your cart.");
+                    echo json_encode($data, JSON_FORCE_OBJECT);
+                    return;
+                }
+                $affectedRows = $scm->removeProductFromCart($_SESSION['id'], $_POST['p_id'], $_SESSION['id']);
                 
-                $scm->addItemsToCart($_POST['item'], $_POST['quantity'], $_SESSION['id']);
+                if($affectedRows > 0) {
 
-                $affectedRows = $scm->checkoutCart($_SESSION['id']);
+                    $data = array("status" => "fail", "msg" => "There are no products");
+
+                } else {
+                    $data = array("status" => "success", "msg" => "There are products");
+                }
+                
+                $scm->removeProductFromCart($_SESSION['id']);
+                
+            break;
+            
+            case "listAllCartProducts":
+            
+                if(!isset($_SESSION['started'])) {
+                    $data = array("status" => "fail", "msg" => "There is no products in your cart.");
+                    echo json_encode($data, JSON_FORCE_OBJECT);
+                    return;
+                }
+                $affectedRows = $scm->addItemsToCart($_SESSION['id']);
+
+            
+                if($affectedRows > 0) {
+
+                    $data = array("status" => "fail", "msg" => "There are no products");
+
+                } else {
+                    $data = array("status" => "success", "msg" => "There are products");
+                }
+                
+                $scm->listAllCartProducts($_SESSION['id']);
                 
                 break;
                 

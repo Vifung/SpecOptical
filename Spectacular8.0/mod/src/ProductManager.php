@@ -26,7 +26,7 @@ class ProductManager {
         $rows = $this->db->query($sql);
         return $rows;
     
-
+       
     /*public function findProduct($SKU) {
         $params = array(":sku" => $SKU);
         $sql = "SELECT SKU, style, colour, type, unit_price WHERE SKU = :sku";
@@ -39,6 +39,28 @@ class ProductManager {
         return null;
     }
 
+    public function editQuantity() {
+        
+        
+        $sql = "UPDATE product SET stock='".$_POST['newquty']."' WHERE id='".$_POST['product_id']."' ";
+        $this->db->query($sql);
+        
+    }
+    
+    public function insertProduct() {
+        
+       
+        
+        $sql = "INSERT INTO product (SKU, style, colour, type, unit_price, img, stock) VALUES ('".$_POST['sku']."', '".$_POST['style']."', '".$_POST['colour']."', '".$_POST['type']."', '".$_POST['price']."', '".$_POST['img']."', '".$_POST['stock']."')";
+        
+        $this->db->query($sql);
+        
+    }
+    
+    
+     
+    
+    
 
 }
 

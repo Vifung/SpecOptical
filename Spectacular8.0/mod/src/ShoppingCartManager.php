@@ -14,7 +14,7 @@ class ShoppingCartManager {
     }
 
     public function startCart() {
-        $sql = "INSERT INTO cart (state, total) values ('started', 0.00)";
+        $sql = "INSERT INTO cart (state) values ('started')";
         $id = $this->db->getTransactionID($sql);
         // return id of the cart that was started
         return $id;
@@ -33,16 +33,97 @@ class ShoppingCartManager {
     }
     
     public function listAllCartProducts() {
-        $sql = "SELECT * FROM product LEFT JOIN cart_product ON product.id = cart_product.product_id";
+        $cart_id = $_SESSION['id'];
+        
+        $sql = "SELECT * FROM cart_product
+                    LEFT JOIN product 
+                    ON cart_product.product_id = product.id
+                WHERE cart_product.cart_id = $cart_id";
         $rows = $this->db->query($sql);
         return $rows;
     }
     
-    /*public function removeProductFromCart() {
-        $sql = "DELETE FROM cart_product WHERE id = $id";
+    public function removeProductFromCart() {
+        $cart_id = $_SESSION['id'];
+        $sql = "DELETE FROM cart_product WHERE cart_id = $cart_id";
         $rows = $this->db->query($sql);
         return $rows;
-    }*/
+        
+        $qty = $_POST['quantity'];
+        $p_id = $_POST['p_id'];
+        
+        echo ($qty);
+        echo ($cart_id);
+        echo ($p_id);
+
+        $qty = $qty - 1;
+        $sql = "SELECT stock FROM product WHERE id = $p_id";
+        $stocks = $this->db->query($sql);
+        $stock=($stocks[0]["stock"]);
+        
+        
+    }
+    
+    public function minusQuantity() {
+        $qty = $_POST['quantity'];
+        $cart_id = $_SESSION['id'];
+        $p_id = $_POST['p_id'];
+        
+        echo ($qty);
+        echo ($cart_id);
+        echo ($p_id);
+
+        $qty = $qty - 1;
+        $sql = "SELECT stock FROM product WHERE id = $p_id";
+        $stocks = $this->db->query($sql);
+        $stock=($stocks[0]["stock"]);
+        
+        if(0 < $qty){
+            
+            $sql = "UPDATE cart_product SET quantity = '$qty' WHERE cart_id = '$cart_id' AND product_id = $p_id";
+            $rows = $this->db->query($sql);
+            $qtys = $stock+1;
+            $sql = "UPDATE product SET stock = $qtys WHERE id = $p_id";
+            $this->db->query($sql);
+            
+        } else {
+            
+            return "Quantity cannot go below zero";
+            
+        }
+        
+    }
+    
+    public function addQuantity() {
+        $qty = $_POST['quantity'];
+        $cart_id = $_SESSION['id'];
+        $p_id = $_POST['p_id'];
+        
+        echo ($qty);
+        echo ($cart_id);
+        echo ($p_id);
+
+        $qty = $qty + 1;
+        
+        $sql = "SELECT stock FROM product WHERE id = $p_id";
+        $stocks = $this->db->query($sql);
+        $stock=($stocks[0]["stock"]);
+        if(0 < $stock){
+            
+            $sql = "UPDATE cart_product SET quantity = '$qty' WHERE cart_id = '$cart_id' AND product_id = $p_id";
+            $rows = $this->db->query($sql);
+            $qtys = $stock-1;
+            $sql = "UPDATE product SET stock = $qtys WHERE id = $p_id";
+            $this->db->query($sql);
+            
+        } else {
+            
+            return "Out of stock";
+            
+        }
+                                
+        
+    }
 
     public function addItemsToCart() {
 
@@ -55,19 +136,29 @@ class ShoppingCartManager {
         $sql = "SELECT ID FROM product WHERE SKU = '$sku'";
         $rows = $this->db->query($sql);
         $product_id = $rows[0]['ID'];
-
-        $sql = "INSERT INTO cart_product (product_id, cart_id, quantity) VALUES ($product_id, $cart_id, $qty)";
+        
+        $sql = "INSERT IGNORE INTO cart_product (product_id, cart_id, quantity) VALUES ($product_id, $cart_id, $qty)";
         $this->db->affectRows($sql);
 
-        $sql = "SELECT * FROM cart_product WHERE card_id = '$cart_id'";
+        $sql = "SELECT * FROM cart_product LEFT JOIN product ON cart_product.product_id = product.id";
         $rows = $this->db->query($sql);
+        
+        $total_price = $total_price + $new_price;
 
-        foreach (cart_id as $cart_id){
-            $total_price = $total_price + $new_price;
-
-            $sql = "INSERT INTO cart (total) VALUES ($total_price)";
-            $rows = $this->db->query($sql);
-        }
+        $sql = "UPDATE INTO cart (total) VALUES ($total_price) WHERE id = '$cart_id'";
+        $rows = $this->db->query($sql);
+        
+        $sql = "SELECT stock FROM product WHERE SKU = '$sku'";
+        $stocks = $this->db->query($sql);
+        $stock=($stocks[0]["stock"]);
+        
+        $newstock = $stock-1;
+        
+        $sql = "UPDATE product SET stock = $newstock WHERE SKU = '$sku'";
+            $this->db->query($sql);
+        
+        
+        
     }
 }
 

@@ -1,5 +1,5 @@
 <?php
-    include("../userdb.php");
+    include("../src/userdb.php");
 
     if(isset($_POST['method'])){
         if($_POST['method'] === 'insert')
