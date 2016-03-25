@@ -1,0 +1,177 @@
+<?php 
+if(!session_id() ){
+session_start();
+}
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+      <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
+      </headReplace>
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <body>
+         <?php 
+
+            echo "Hello! ";
+            if (isset($_SESSION["fname"])) {
+                echo $_SESSION["fname"].  $_SESSION["lname"];
+                echo '<nav id="nav2" role="navigation" metal:define-macro="nav_admin">
+
+                      <div>
+                        <div>
+                          <ul id="navitemsl" style="float:left;clear:left;padding:0;">
+                            <img src=""/>
+                            <a href="index.php">Home</a>
+                            <a href="#">About</a>
+
+                          </ul>
+                          <ul id="navitemsr" style="float:right;clear:right;padding:0;">
+                            <a href="./logout.php">SignOut</a>
+                            <a href="./product_admin.php">Product</a>
+                            <a href="./cart.php">Cart</a>
+                          </ul>
+                        </div>
+                      </div>
+                    </nav>';
+                    
+
+            } else {
+
+               echo '<nav id="nav" role="navigation" metal:define-macro="nav_bar">
+
+                      <div>
+                        <div>
+                          <ul id="navitemsl" style="float:left;clear:left;padding:0;">
+                            <img src=""/>
+                            <a href="index.php">Home</a>
+                            <a href="#">About</a>
+
+                          </ul>
+                          <ul id="navitemsr" style="float:right;clear:right;padding:0;">
+                            <a href="./login.php">Login</a>
+                            <a href="./cart.php">Cart</a>
+                          </ul>
+                        </div>
+                      </div>
+                    </nav>';
+
+            }
+
+
+        ?>
+        
+        <div id="content">            
+            
+            
+            <div id="info">
+            </div>
+            
+            <input type="text" id='img' placeholder="product image"/>
+            <input type="text" id='sku' placeholder="product sku"/>
+            <input type="text" id='style' placeholder="product style"/>
+            <input type="text" id='color' placeholder="product colour"/>
+            <input type="text" id='price' placeholder="product price"/>
+            <input type="text" id='type' placeholder="product type"/>
+            <input type="text" id='stock' placeholder="product stock"/>
+            <input type="text" id='update' placeholder="product update"/>
+            <br/>
+            
+            <button id="newInsert">insert</button>
+            
+            
+
+            
+            
+            <!--<div class="pure-controls">
+                <label for="cb" class="pure-checkbox">
+                    <input id="cb" type="checkbox"></input> Select All
+                </label>
+
+                <button id="rbtn" type="submit">Remove Items</button>
+            </div>
+        
+            <div id="cartItems">
+            
+            </div>-->
+            
+            
+            
+        </div>     
+        
+        <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
+        </footerReplace>
+    </body>
+    <script>
+            $(document).ready(function() {
+                
+                $.ajax({
+                        url: "./mod/admin_p-gen.php",
+                        type: "POST",
+                        dataType: 'html',
+                        success: function(returnedData) {
+                            $("#info").html(returnedData);
+                            $(".prodUpdate").click(function(){
+                                console.log(this.parentNode.parentNode.childNodes[12].childNodes[0].value);
+                                console.log(this.parentNode.parentNode.dataset.id);
+                                
+                                 $.ajax({
+                                        url: "./mod/updateproduct.php",
+                                        type: "POST",
+                                        dataType:"html",
+                                        data: {
+                                            method:"stockUpdate",
+                                            
+                                            product_id: this.parentNode.parentNode.dataset.id,
+                                            newquty: this.parentNode.parentNode.childNodes[12].childNodes[0].value,
+                                            
+                                            
+                                        },
+                                        success: function(returnedData) {
+                                            //alert 
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown) {
+                                            console.log(jqXHR.statusText, textStatus);
+                                        }
+                                });
+                            
+                                
+                                
+                                
+
+                            });
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
+                
+                document.getElementById("newInsert").onclick = function(){
+                    
+                    
+                    $.ajax({
+                        url:"./mod/insertproduct.php",
+                        type: "POST",
+                        dataType: 'html',
+                        data: {
+                             
+                                img: document.getElementById('img').value,
+                                sku: document.getElementById('sku').value,
+                                style: document.getElementById('style').value,
+                                colour: document.getElementById('color').value,
+                                price: document.getElementById('price').value,
+                                type: document.getElementById('type').value,
+                                stock: document.getElementById('stock').value,
+                                update: document.getElementById('update').value,
+                          
+                              },
+                  
+                    });
+                    
+                    
+                }
+                
+                
+            });
+        </script>
+</html>
