@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+      <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
+      </headReplace>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <body>
+        <navReplace metal:use-macro="./templating/nav.xhtml/nav_bar">
+        </navReplace>
+        
+        <span class="inputs" style="top:15%;left:28%;">Create Account</span>  
+        <input class="inputs" id="fname" placeholder="First Name" style="top:20%;left:28%;"></input><br/>
+        <input class="inputs" id="lname" placeholder="Last Name" style="top:32%;left:28%;"></input>
+        <input class="inputs" id="email" placeholder="Email" style="top:44%;left:28%;"></input><br/>
+        <input type="password" class="inputs" id="password" placeholder="Password" style="top:56%;left:28%;"></input>
+        <button class="inputs" id="signupBtn" style="top:68%;left:28%;">Create</button>
+
+        <script>
+            $(document).ready(function(){
+                //connect and insert
+                
+                document.getElementById("signupBtn").onclick = function(){
+                    $.ajax({
+                        // SENDING DATA TO PHP 
+                        url:"./mod/controller/user-control.php",
+                        type:"post",
+                        dataType:"html",
+                        data: {
+                            method:"insert",
+                            email: document.getElementById("email").value,
+                            password: document.getElementById("password").value,
+                            fname: document.getElementById("fname").value,
+                            lname: document.getElementById("lname").value,
+                                                    
+                        },
+                        success:function(resp){
+                            alert("Welcome to Spectacular!");
+                            window.location.href = './login.php';
+                            
+                        }
+                    });
+                }
+            });
+        </script>
+
+        
+        <!--<script src="./js/main.js"></script>-->
+
+        <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
+        </footerReplace>
+
+    </body>
+    
+</html>
