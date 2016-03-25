@@ -1,20 +1,13 @@
-<!-- User Status either log in or log out -->
-<?php 
-if(!session_id() ){
-session_start();
-}
 
-
-?>
 <!DOCTYPE html>
 <html lang="en">
       <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
       </headReplace>
     
     <body>
+        
         <?php 
 
-            echo "Hello! ";
             if (isset($_SESSION["fname"])) {
                 echo $_SESSION["fname"].  $_SESSION["lname"];
                 echo '<nav id="nav2" role="navigation" metal:define-macro="nav_admin">
@@ -46,7 +39,6 @@ session_start();
                           <ul id="navitemsl" style="float:left;clear:left;padding:0;">
                             <img src=""/>
                             <a href="index.php">Home</a>
-                            <a href="#">About</a>
 
                           </ul>
                           <ul id="navitemsr" style="float:right;clear:right;padding:0;">
@@ -61,7 +53,6 @@ session_start();
 
 
         ?>
-        
         
         <div id="slideshow-wrap">
              	<input type="radio" id="button-1" name="controls" checked="checked"/>
@@ -101,23 +92,23 @@ session_start();
         
         
             <div id="cmenu" style="padding-top:550px;">
-                    <a href="#" style="font-family: Exo-Bold, sans-serif;"> Custom Glasses </a> 
-                <ul id="citems" style="padding:0px;">
-                     <!--<br><span>Custom Glasses</span></br>-->
+                    <!--<a href="#" style="font-family: Exo-Bold, sans-serif;"> Custom Glasses </a> -->
+                <!--<ul id="citems" style="padding:0px;">
                      <a href="#">| Classic</a>
                      <a href="#">| Trendy/Hipster |</a>
                      <a href="#">Nerdy |</a>
-                </ul>
+                </ul>-->
             </div>    
             
         <!-- NEW GLASSES CONTENT PHP -->
-            
-        
             <div id="content_g">
+               
+                
             </div>
    
                 
-
+        
+    
                  
             
             
@@ -126,17 +117,13 @@ session_start();
             
             <script>
                 $(document).ready(function(){
-                    console.log("start");
+                    console.log("start"); 
                     
-                    
-                    
-                    // alex
-                    
+                    //calls all products
                     $.ajax({
                         url: "./mod/allproducts.php",
                         type: "POST",
                         dataType: 'html',
-    //dont need id to get all//data: {id: "unit_id"},
                         success: function(returnedData) {
                             //console.log(returnedData);
                             $("#content_g").html(returnedData);
@@ -146,77 +133,56 @@ session_start();
                         }
                     });
                     
-                    // alex
-                    
-                    
-                    
-                    
-                    
-                    //var unit_id=" document.getElementyById('id');"
-                    //alert("ready!");
-                    
-                    //start cart
-                    $("#add").click(function() {
-                        
-                        console.log(this.dataset.id);
-                        
-                        
-                        
+                    //alex's ajax call
                     $.ajax({
-                        url: "./mod/shoppingcart.php",
+                        url: "./mod/allproducts.php",
                         type: "POST",
-                        dataType: 'json',
-                        data: {action: "startcart"},
+                        dataType: 'html',
                         success: function(returnedData) {
-                            console.log("cart start response: ", returnedData);
-
+                            //console.log(returnedData);
+                            $("#content_g").html(returnedData);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(jqXHR.statusText, textStatus);
                         }
                     });
-                        
-                        
-                        //pulls the id num of the product on index.html and based on that id put the product in cart_product with leftjoin product id from products table
-                        //loop with a function through all id nums to pull certain products in products table
-                        //moved get all
-                        
-                    //pull product data
-                    /*$.ajax({
-                        url: "./mod/product.php",
-                        type: "GET",
-                        dataType: 'json',
-                        data: {action: "findProduct", field: "SKU" key: 12354653},
-                        success: function(returnedData) {
-                            console.log("cart start response: ", returnedData);
-
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log(jqXHR.statusText, textStatus);
-                        }
-                    });*/
-                        
-                        
-                        //put into cart
-                        /*$.ajax({
-                            url:"./addtocart.php",
-                            type:"post",
-                            dataType:"json",
-                            data: {
-                                method: "addtocart",
-                                product_id: product_id,
-                                cart_id: cart_id,
-                                quantity: 1
+                    
+                    //start cart
+                    console.log("hi start");
+                    $.ajax({
+                            url: "./mod/shoppingcart.php",
+                            type: "POST",
+                            dataType: 'json',
+                            data: {action: "startcart"},
+                            success: function(returnedData) {
+                                console.log("cart start response: ", returnedData);
 
                             },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(jqXHR.statusText, textStatus);
+                            }
+                    });
+                    
+                    $(document).on('click', '.add', function() {
+                        
+                        //add to cart
+                        console.log(this.dataset.id);
+                        var item = this.dataset.id;
+                        var price = this.dataset.price;
+                        
+                        $.ajax({
+                            url:"./mod/shoppingcart.php",
+                            type:"post",
+                            dataType:"json",
+                            data: {action: "addItemsToCart", item: item, price: price, quantity: 1},
                             success:function(resp){
-                                alert("User profile updated!");
+                                console.log("cart start response: ", returnedData);
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 console.log(jqXHR.statusText, textStatus);
                                 console.log(resp);
                             }
-                        });*/
+                        });
                     
                     });
                 

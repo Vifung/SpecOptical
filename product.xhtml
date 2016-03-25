@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+      <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
+      </headReplace>
+    
+    <body>
+        <navReplace metal:use-macro="./templating/nav.xhtml/nav_bar">
+        </navReplace>
+        
+        <div id="content">
+        
+        <h3>Glasses Name here</h3><br/>
+        
+        <img src=""></img>
+        
+        <span id="descTitle" style="text-decoration:underline;">Description</span><br/>
+        
+        <span id="ProductDesc">Bensen's classic shape will take you from breakfast to evening cocktails without a hitch—and the subtle, softened angles look splendid on every face shape.</span><br/><br/>
+        
+        <span id="sku">SKU: 12354653</span><br/>
+        <span id="style">Style: classic</span><br/>
+        <span id="colour">Colour: black</span><br/>
+        <span id="type">Type: prescription</span><br/>
+        <span id="unit_price">Price: 12.95</span><br/><br/>
+    
+        <button id="startCart">Add To Cart</button>
+        
+        </div>
+                
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <!--<script src="./js/main.js"></script>-->
+        <script>
+            $(document).ready( function() {
+            
+               /* $sku = $("#sku").val;
+                $style = $("#style").val;
+                $colour = $("#colour").val;
+                $type = $("#prescription").val;
+                $uprice = $("#unit_price").val;*/
+                
+                // get the sku
+                
+            
+                // start the cart
+                $("#startCart").click(function() {
+                    
+                    $.ajax({
+                    
+                        url: "./mod/",
+                    
+                    });
+                    
+                    
+                    console.log("Start cart.");
+                    $.ajax({
+                        url: "./mod/shoppingcart.php",
+                        type: "POST",
+                        dataType: 'json',
+                        data: {action: "startcart"},
+                        success: function(returnedData) {
+                            console.log("cart start response: ", returnedData);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
+                });
+            });
+
+        </script>
+
+        <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
+        </footerReplace>
+    </body>
+    
+</html>

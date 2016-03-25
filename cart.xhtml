@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+      <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
+      </headReplace>
+    
+    <body>
+        <navReplace metal:use-macro="./templating/nav.xhtml/nav_bar">
+        </navReplace>
+        
+        <div id="content">
+            <span>My Cart</span>
+            
+            <div id="cmenu" style="padding:0px;">
+                <ul id="citems" style="padding:0px;">
+                </ul>
+            </div>
+            
+            <div id="cart">
+            
+            </div>
+            
+            <a href="./checkout.php/"><button id="nBtn">Proceed to Checkout</button></a>
+            <button id="cancelCart">Cancel Cart</button>
+            
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>
+        /*<![CDATA[*/
+            $(document).ready(function() {
+
+                $.ajax({
+                        url: "./mod/allcart.php",
+                        type: "POST",
+                        dataType: 'html',
+                        success: function(returnedData) {
+                            $("#cart").html(returnedData);
+                            
+                            $(".delete").click(function(){
+                                //this.closest("tr").remove();
+                                var p_id = this.parentNode.parentNode.dataset.id;
+                                var quantity = this.parentNode.parentNode.dataset.quantity;
+                                
+                                $.ajax({
+                                    url: "./mod/shoppingcart.php",
+                                    type: "POST",
+                                    dataType: 'json',
+                                    data: {action: "removeProductFromCart", quantity: quantity, p_id: p_id},
+                                    success: function(returnedData) {
+                                        console.log("cart cancel response: ", returnedData);
+
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        console.log(jqXHR.statusText, textStatus);
+                                    }
+                                });
+                                
+                            });
+                            
+                            console.log($(".add"));
+                            $(".add").click(function(){                                
+
+                                var p_id = this.parentNode.parentNode.dataset.id;
+                                var quantity = this.parentNode.parentNode.dataset.quantity;
+                                
+                                $.ajax({
+                                    url: "./mod/shoppingcart.php",
+                                    type: "POST",
+                                    dataType: 'json',
+                                    data: {action: "addQuantity", quantity: quantity, p_id: p_id},
+                                    success: function(returnedData) {
+                                        console.log("cart cancel response: ", returnedData);
+
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        console.log(jqXHR.statusText, textStatus);
+                                    }
+                                });
+                            });
+
+                            $(".minus").click(function(){
+                                
+                                var p_id = this.parentNode.parentNode.dataset.id;
+                                var quantity = this.parentNode.parentNode.dataset.quantity;
+                                
+                                console.log (p_id, quantity);
+                                
+                                $.ajax({
+                                    url: "./mod/shoppingcart.php",
+                                    type: "POST",
+                                    dataType: 'json',
+                                    data: {action: "minusQuantity", quantity: quantity, p_id: p_id},
+                                    success: function(returnedData) {
+                                        console.log("cart cancel response: ", returnedData);
+
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        console.log(jqXHR.statusText, textStatus);
+                                    }
+                                });
+                            });
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
+
+                // cancel the cart
+                $("#cancelCart").click(function() {
+
+                    console.log("End cart.");
+                    $.ajax({
+                        url: "./mod/shoppingcart.php",
+                        type: "POST",
+                        dataType: 'json',
+                        data: {action: "cancelcart"},
+                        success: function(returnedData) {
+                            console.log("cart cancel response: ", returnedData);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
+                    var shoppingCartList = $("#shoppingCart").html("");
+                });
+
+                // checkout the cart
+                $("#nBtn").click(function() {
+
+                    // retrieve all of the items from the cart:
+                    var items = $("#cart tr");
+                    var itemArray = [];
+                    $.each(items, function(key, value) {
+
+                        var item = {sku: value.getAttribute("data-item-sku"),
+                            qty: value.getAttribute("data-item-qty")};
+                        itemArray.push(item);
+                    });
+                    var itemsAsJSON = JSON.stringify(itemArray);
+                    console.log("itemsAsJSON", itemsAsJSON);
+
+
+                    console.log("Check out cart with the following items", itemArray);
+                    $.ajax({
+                        url: "./mod/shoppingcart.php",
+                        type: "POST",
+                        dataType: 'html',
+                        data: {action: "checkoutcart", items: itemsAsJSON},
+                        success: function(returnedData) {
+                            console.log("cart check out response: ", returnedData);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR.statusText, textStatus);
+                        }
+                    });
+                    var shoppingCartList = $("#shoppingCart").html("");
+                });
+
+
+
+
+            });
+            /*]]>*/
+        </script>
+                    
+        </div>     
+        
+        <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
+        </footerReplace>
+    </body>
+    
+</html>

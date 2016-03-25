@@ -1,7 +1,4 @@
 <?php
-if(!session_id()){
-session_start();
-}
     require_once('./libs/PHPTAL-1.3.0/PHPTAL.php');
 
     $template = new PHPTAL('index.xhtml');

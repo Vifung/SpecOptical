@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+      <headReplace metal:use-macro="/templating/head.xhtml/meta_head">
+      </headReplace>
+    
+    <navReplace metal:use-macro="./templating/nav.xhtml/nav_bar">
+    </navReplace>
+    
+    <body>
+        <div id="content">
+            
+            <span>My Orders</span>
+            
+            <div id="cmenu" style="padding:0px;">
+                <ul id="citems" style="padding:0px;">
+                     <!--<br><span>Custom Glasses</span></br>-->
+                     <a href="./info.php">| My Information</a>
+                     <a href="order.php">| My Orders |</a>
+                     <a href="cart.php">My Cart |</a>
+                </ul>
+            </div>
+            <table class="pure-table" style="margin:auto;width:90%;">
+                <thead>
+                    <tr>
+                        <th>Order Information</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+                
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <!--<script src="./js/main.js"></script>-->
+
+        <footerReplace metal:use-macro="/templating/footer.xhtml/page_footer">
+        </footerReplace>
+    </body>
+    
+</html>
